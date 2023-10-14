@@ -1,14 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
+import CourseEditForm from './CourseEditForm'; // Import the CourseEditForm component
 
-const CourseLine = ({ course, isSelected, pink, toggleSelect }) => {
+const CourseLine = ({ course, isSelected, pink, toggleSelect, onEditClick }) => {
+  const [isEditing, setIsEditing] = useState(false);
+
   let cardClass = 'card';
-  // console.log(course);
+
   if (isSelected) {
     cardClass = 'card selected';
   } else if (pink) {
     cardClass = 'card pink';
-    console.log(course)
   }
+
+  const handleEditClick = () => {
+    setIsEditing(true);
+    onEditClick(course); // Pass the course data to the parent component for editing
+  };
+
+  const handleCancelClick = () => {
+    setIsEditing(false);
+    onEditClick(null); // Pass null to indicate canceling the edit
+  };
 
   return (
     <div className="col-md-3 mb-3">
@@ -17,11 +29,27 @@ const CourseLine = ({ course, isSelected, pink, toggleSelect }) => {
           <h5 className="mb-0">{course.term} CS {course.number}</h5>
         </div>
         <div className="card-body">
-          <p className="card-title">{course.title}</p>
+          {isEditing ? (
+            <CourseEditForm
+              course={course}
+              onCancel={handleCancelClick}
+              onSave={(editedCourse) => {
+                // Handle saving the edited course data
+                console.log('Saving edited course:', editedCourse);
+                setIsEditing(false);
+                onEditClick(null);
+              }}
+            />
+          ) : (
+            <p className="card-title">{course.title}</p>
+          )}
         </div>
         <div className="card-footer">
           {course.meets}
         </div>
+        {isEditing ? null : (
+          <button onClick={handleEditClick}>Edit</button>
+        )}
       </div>
     </div>
   );
