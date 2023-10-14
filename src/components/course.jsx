@@ -1,8 +1,14 @@
 import React from 'react';
 
-const CourseLine = ({ course, isSelected, toggleSelect }) => {
-  // Define a CSS class based on the isSelected prop
-  const cardClass = isSelected ? 'card selected' : 'card';
+const CourseLine = ({ course, isSelected, pink, toggleSelect }) => {
+  let cardClass = 'card';
+  // console.log(course);
+  if (isSelected) {
+    cardClass = 'card selected';
+  } else if (pink) {
+    cardClass = 'card pink';
+    console.log(course)
+  }
 
   return (
     <div className="col-md-3 mb-3">
@@ -22,4 +28,3 @@ const CourseLine = ({ course, isSelected, toggleSelect }) => {
 };
 
 export default CourseLine;
-

@@ -70,6 +70,10 @@ button {
   background-color: lightblue;
 }
 
+.card.pink{
+
+  background-color: lightpink;
+}
 .modal {
   display: block;
   visibility: hidden;
