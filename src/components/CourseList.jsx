@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import CourseLine from './course';
+import CourseLine from './Course';
+import Modal from './Modal'; // Import the Modal component
 import '../App.css';
+import CoursePlanPopup from './CoursePlanPopup';
 
 const CourseList = ({ courses, term }) => {
-  // State to keep track of selected items
   const [selectedItems, setSelectedItems] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false); // State for the modal
 
-  // Function to toggle selection of an item
   const toggleSelect = (id) => {
     if (selectedItems.includes(id)) {
       setSelectedItems(selectedItems.filter((item) => item !== id));
@@ -19,7 +20,13 @@ const CourseList = ({ courses, term }) => {
     (course) => course.term === term
   );
 
-  // console.log(term);
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <div className="container">
@@ -28,11 +35,23 @@ const CourseList = ({ courses, term }) => {
           <CourseLine
             key={id}
             course={course}
-            isSelected={selectedItems.includes(id)} 
-            toggleSelect={() => toggleSelect(id)} 
+            isSelected={selectedItems.includes(id)}
+            toggleSelect={() => toggleSelect(id)}
           />
         ))}
       </div>
+
+      <button className="course-plan-button" onClick={openModal}>
+        Course Plan
+      </button>
+
+      <Modal open={isModalOpen} close={closeModal}>
+        <CoursePlanPopup
+          selectedCourses={selectedItems}
+          courses={filteredCourses}
+          closeModal={closeModal}
+        />
+      </Modal>
     </div>
   );
 };
