@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { useDbUpdate } from '../utilities/firebase';
 
 const CourseEditForm = ({ course, onCancel, onSave }) => {
+    // console.log(course);
   const [editedTitle, setEditedTitle] = useState(course.title);
   const [editedMeetingTimes, setEditedMeetingTimes] = useState(course.meets);
   const [titleError, setTitleError] = useState('');
@@ -24,26 +26,37 @@ const CourseEditForm = ({ course, onCancel, onSave }) => {
     }
 
     return isFormValid;
-  };
+    };
+    
+    
 
   const isValidMeetingTimes = (times) => {
     const regex = /^[A-Z]{1,5} \d{2}:\d{2}-\d{2}:\d{2}$/;
     return regex.test(times);
   };
 
-  const handleSaveClick = (event) => {
-    event.preventDefault(); // Prevent the default form submission behavior
-    if (validateForm()) {
-      const editedCourse = {
-        ...course,
-        title: editedTitle,
-        meets: editedMeetingTimes,
+
+    const [updateData, result] = useDbUpdate(`/courses/${course.id}`);
+    console.log(course.id);
+    const handleSaveClick = async () => {
+        if (validateForm()) {
+          const editedCourse = {
+            ...course,
+            title: editedTitle,
+            meets: editedMeetingTimes,
+            };
+            
+
+    
+          try {
+            await updateData(editedCourse); // Update the data in the database
+            onSave(editedCourse); // Notify the parent component that the data has been saved
+          } catch (error) {
+            console.error('Error updating data:', error);
+          }
+        }
       };
-      onSave(editedCourse);
-      setTitleError('');
-      setMeetingTimesError('');
-    }
-  };
+   
 
   return (
     <form onSubmit={handleSaveClick}>

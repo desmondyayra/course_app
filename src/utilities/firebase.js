@@ -34,9 +34,11 @@ const firebaseConfig = {
   };
 export const useDbUpdate = (path) => {
 
-    console.log("herreeeeee");
+    // console.log("herreeeeee");
     
     const [result, setResult] = useState();
+
+    console.log(path);
  
     const updateData = useCallback((value) => {
       update(ref(database, path), value)

@@ -6,7 +6,19 @@ import CoursePlanPopup from './CoursePlanPopup';
 
 const CourseList = ({ courses, term }) => {
   const [selectedItems, setSelectedItems] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
+  const coursesWithId = {};
+
+for (const courseId in courses) {
+  if (courses.hasOwnProperty(courseId)) {
+    const course = courses[courseId];
+    coursesWithId[courseId] = { ...course, id: courseId };
+  }
+  }
+  
+  // console.log(courses);
+  // console.log(coursesWithId);
 
   const toggleSelect = (id) => {
     if (selectedItems.includes(id)) {
@@ -23,7 +35,7 @@ const CourseList = ({ courses, term }) => {
   };
   
 
-  const filteredCourses = Object.values(courses).filter(
+  const filteredCourses = Object.values(coursesWithId).filter(
     (course) => course.term === term
   );
 

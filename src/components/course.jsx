@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import CourseEditForm from './CourseEditForm'; // Import the CourseEditForm component
 
 const CourseLine = ({ course, isSelected, pink, toggleSelect, onEditClick }) => {
+  // console.log(course);
   const [isEditing, setIsEditing] = useState(false);
 
   let cardClass = 'card';
