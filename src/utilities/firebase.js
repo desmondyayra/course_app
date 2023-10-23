@@ -32,8 +32,12 @@ const firebaseConfig = {
     const message = error?.message || `Updated: ${new Date(timestamp).toLocaleString()}`;
     return { timestamp, error, message };
   };
-  export const useDbUpdate = (path) => {
+export const useDbUpdate = (path) => {
+
+    console.log("herreeeeee");
+    
     const [result, setResult] = useState();
+ 
     const updateData = useCallback((value) => {
       update(ref(database, path), value)
       .then(() => setResult(makeResult()))

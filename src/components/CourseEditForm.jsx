@@ -27,12 +27,12 @@ const CourseEditForm = ({ course, onCancel, onSave }) => {
   };
 
   const isValidMeetingTimes = (times) => {
-    
     const regex = /^[A-Z]{1,5} \d{2}:\d{2}-\d{2}:\d{2}$/;
     return regex.test(times);
   };
 
-  const handleSaveClick = () => {
+  const handleSaveClick = (event) => {
+    event.preventDefault(); // Prevent the default form submission behavior
     if (validateForm()) {
       const editedCourse = {
         ...course,
@@ -40,14 +40,13 @@ const CourseEditForm = ({ course, onCancel, onSave }) => {
         meets: editedMeetingTimes,
       };
       onSave(editedCourse);
-      
       setTitleError('');
       setMeetingTimesError('');
     }
   };
 
   return (
-    <form>
+    <form onSubmit={handleSaveClick}>
       <input
         type="text"
         value={editedTitle}
@@ -60,7 +59,7 @@ const CourseEditForm = ({ course, onCancel, onSave }) => {
         onChange={(e) => setEditedMeetingTimes(e.target.value)}
       />
       {meetingTimesError && <div className="error-message">{meetingTimesError}</div>}
-      <button onClick={handleSaveClick}>Save</button>
+      <button type="submit">Save</button>
       <button onClick={onCancel}>Cancel</button>
     </form>
   );

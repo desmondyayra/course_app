@@ -14,12 +14,12 @@ const CourseLine = ({ course, isSelected, pink, toggleSelect, onEditClick }) => 
 
   const handleEditClick = () => {
     setIsEditing(true);
-    onEditClick(course); // Pass the course data to the parent component for editing
+    
   };
 
   const handleCancelClick = () => {
     setIsEditing(false);
-    onEditClick(null); // Pass null to indicate canceling the edit
+    
   };
 
   return (
@@ -37,7 +37,7 @@ const CourseLine = ({ course, isSelected, pink, toggleSelect, onEditClick }) => 
                 // Handle saving the edited course data
                 console.log('Saving edited course:', editedCourse);
                 setIsEditing(false);
-                onEditClick(null);
+                
               }}
             />
           ) : (
