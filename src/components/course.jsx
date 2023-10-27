@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import CourseEditForm from './CourseEditForm'; // Import the CourseEditForm component
 
-const CourseLine = ({ course, isSelected, pink, toggleSelect, onEditClick }) => {
+const CourseLine = ({ course, profile, isSelected, pink, toggleSelect, onEditClick }) => {
   // console.log(course);
   const [isEditing, setIsEditing] = useState(false);
 
@@ -33,6 +33,7 @@ const CourseLine = ({ course, isSelected, pink, toggleSelect, onEditClick }) => 
           {isEditing ? (
             <CourseEditForm
               course={course}
+              profile={profile}
               onCancel={handleCancelClick}
               onSave={(editedCourse) => {
                 // Handle saving the edited course data
@@ -48,9 +49,9 @@ const CourseLine = ({ course, isSelected, pink, toggleSelect, onEditClick }) => 
         <div className="card-footer">
           {course.meets}
         </div>
-        {isEditing ? null : (
+        {profile === 'Admin' && !isEditing ? ( 
           <button onClick={handleEditClick}>Edit</button>
-        )}
+        ) : null}
       </div>
     </div>
   );

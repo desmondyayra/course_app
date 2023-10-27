@@ -44,7 +44,9 @@ const CourseEditForm = ({ course, onCancel, onSave }) => {
             ...course,
             title: editedTitle,
             meets: editedMeetingTimes,
-            };
+          };
+          
+          
             
 
     

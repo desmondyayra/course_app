@@ -4,7 +4,7 @@ import Modal from './Modal'; // Import the Modal component
 import '../App.css';
 import CoursePlanPopup from './CoursePlanPopup';
 
-const CourseList = ({ courses, term }) => {
+const CourseList = ({ courses, term, profile }) => {
   const [selectedItems, setSelectedItems] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   
@@ -111,6 +111,7 @@ for (const courseId in courses) {
           <CourseLine
             key={id}
             course={course}
+            profile={profile}
             isSelected={selectedItems.includes(id)}
             pink={!selectedItems.includes(id) && !hasTimeConflict(selectedItems, id)}
             toggleSelect={() => toggleSelect(id)}
