@@ -24,7 +24,8 @@ const CourseLine = ({ course, profile, isSelected, pink, toggleSelect, onEditCli
   };
 
   return (
-    <div className="col-md-3 mb-3">
+    <div className="col-md-3 mb-3" data-cy="course">
+      
       <div className={cardClass} onClick={toggleSelect}>
         <div className="card-header">
           <h5 className="mb-0">{course.term} CS {course.number}</h5>
