@@ -11,7 +11,9 @@ const Term_select = ({ selectedTerm, onTermChange }) => {
   }
 
   return (
-    <button onClick={nextChoice}>{selectedTerm}</button>
+    
+      <button onClick={nextChoice} data-cy="term">{selectedTerm}</button>
+      
   );
 };
 
